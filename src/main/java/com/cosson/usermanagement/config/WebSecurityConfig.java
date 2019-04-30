@@ -1,8 +1,8 @@
 package com.cosson.usermanagement.config;
 
-import com.cosson.usermanagement.security.JwtUserDetailsService;
 import com.cosson.usermanagement.security.JwtAuthenticationEntryPoint;
 import com.cosson.usermanagement.security.JwtAuthenticationFilter;
+import com.cosson.usermanagement.security.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +28,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    JwtUserDetailsService jwtUserDetailsService;
+    private JwtUserDetailsService jwtUserDetailsService;
 
     @Autowired
     private JwtAuthenticationEntryPoint unauthorizedHandler;
@@ -58,8 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .cors()
+        http.cors()
                 .and()
                 .csrf()
                 .disable()
@@ -70,19 +69,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/*.html")
-                .permitAll()
                 .antMatchers("/auth/**")
                 .permitAll()
-                //.antMatchers("/api/user/checkUsernameAvailability")
-                //.permitAll()
-                //.antMatchers(HttpMethod.GET, "/api/polls/**", "/api/users/**")
-                //.permitAll()
                 .anyRequest()
                 .authenticated();
 
-        // Add our custom JWT security filter
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-
     }
 }

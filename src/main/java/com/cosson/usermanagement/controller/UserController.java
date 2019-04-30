@@ -5,12 +5,12 @@ import com.cosson.usermanagement.dto.RegistrationRequest;
 import com.cosson.usermanagement.dto.UserInfoResponse;
 import com.cosson.usermanagement.dto.UserUpdateRequest;
 import com.cosson.usermanagement.entity.RoleName;
-import com.cosson.usermanagement.security.CurrentUser;
 import com.cosson.usermanagement.security.UserPrincipal;
 import com.cosson.usermanagement.service.UserAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,13 +25,13 @@ public class UserController {
     private UserAdminService service;
 
     @GetMapping("/me")
-    public UserInfoResponse getCurrentUser(@CurrentUser UserPrincipal currentUser) {
+    public UserInfoResponse getCurrentUser(@AuthenticationPrincipal UserPrincipal currentUser) {
         UserInfoResponse userInfoResponse = new UserInfoResponse(currentUser.getId(), currentUser.getUsername(), currentUser.getEmail(), currentUser.getAuthorities());
         return userInfoResponse;
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getUser(@PathVariable long id, @CurrentUser UserPrincipal currentUser) {
+    public ResponseEntity<?> getUser(@PathVariable long id, @AuthenticationPrincipal UserPrincipal currentUser) {
         if (id == currentUser.getId()) {
             return ResponseEntity.ok(new UserInfoResponse(currentUser.getId(), currentUser.getUsername(), currentUser.getEmail(), currentUser.getAuthorities()));
         }
@@ -44,8 +44,9 @@ public class UserController {
         }
     }
 
+    @PreAuthorize("hasAnyRole('MANAGER','ADMIN')")
     @GetMapping("/all")
-    public ResponseEntity<?> getAllUser(@CurrentUser UserPrincipal currentUser) {
+    public ResponseEntity<?> getAllUser(@AuthenticationPrincipal UserPrincipal currentUser) {
         RoleName roleName = service.getCurrentUserRole(currentUser);
         if (roleName.equals(RoleName.ROLE_USER)) {
             return ResponseEntity.ok(new UserInfoResponse(currentUser.getId(), currentUser.getUsername(), currentUser.getEmail(), currentUser.getAuthorities()));
@@ -68,7 +69,7 @@ public class UserController {
     }
 
     @PatchMapping("/update")
-    public ResponseEntity<?> updateUser(@CurrentUser UserPrincipal currentUser, @RequestBody UserUpdateRequest updateRequest) {
+    public ResponseEntity<?> updateUser(@AuthenticationPrincipal UserPrincipal currentUser, @RequestBody UserUpdateRequest updateRequest) {
         RoleName currentUserRole = service.getCurrentUserRole(currentUser);
         if (Objects.equals(RoleName.ROLE_USER, currentUserRole)
                 && !Objects.equals(currentUser.getUsername(), updateRequest.getUsername())) {
@@ -84,7 +85,7 @@ public class UserController {
      * Admin can delete anyone's profile
      * */
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable long id, @CurrentUser UserPrincipal currentUser) {
+    public ResponseEntity<?> deleteUser(@PathVariable long id, @AuthenticationPrincipal UserPrincipal currentUser) {
         RoleName currentUserRole = service.getCurrentUserRole(currentUser);
         if (Objects.equals(RoleName.ROLE_USER, currentUserRole) && id != currentUser.getId()) {
             return ResponseEntity.badRequest()

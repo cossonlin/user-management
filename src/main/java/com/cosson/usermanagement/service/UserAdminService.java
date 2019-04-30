@@ -56,13 +56,13 @@ public class UserAdminService {
         return userRepository.existsByUsername(username);
     }
 
-    public void createUser(RegistrationRequest registrationRequest, RoleName assignRoleName) {
+    public User createUser(RegistrationRequest registrationRequest, RoleName assignRoleName) {
         User user = new User(registrationRequest.getUsername(), registrationRequest.getEmail(), registrationRequest.getPassword());
         Role userRole = roleRepository.findByName(assignRoleName)
                 .orElseThrow(() -> new AppException("User Role not set."));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(Collections.singleton(userRole));
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     public UserInfoResponse updateUser(UserUpdateRequest user, RoleName operatorRole) {

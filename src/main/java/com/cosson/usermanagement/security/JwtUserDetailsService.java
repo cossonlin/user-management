@@ -23,7 +23,6 @@ public class JwtUserDetailsService implements UserDetailsService {
                 .orElseThrow(() ->
                         new UsernameNotFoundException("User not found with username: " + username)
                 );
-
         return UserPrincipal.create(user);
     }
 }

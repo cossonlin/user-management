@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "4a9f1a2b-96b9-43e5-b3cd-0c504758e182",
+		"_postman_id": "f9a0883b-b978-4468-8178-f43f339ddcc4",
 		"name": "user-management",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -25,12 +25,12 @@
 							"raw": "{\n\t\"username\": \"user\",\n\t\"email\": \"user@test.com\",\n\t\"password\": \"user\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/auth/register",
+							"raw": "http://localhost:{{port}}/auth/register",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "{{port}}",
 							"path": [
 								"auth",
 								"register"
@@ -56,15 +56,114 @@
 							"raw": "{\n\t\"username\": \"user\",\n\t\"password\": \"user\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/auth/login",
+							"raw": "http://localhost:{{port}}/auth/login",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "{{port}}",
 							"path": [
 								"auth",
 								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user by id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiaWF0IjoxNTU2NjA5NzA4LCJleHAiOjE1NTY2OTYxMDh9.rwMpNscm45vbM51MP_qFePOvAsyzCGFIbggfy8V15CABgMrc-GnNV1FjD2btrtUvzrKXzxd6vam1LYcOZdnUdg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:{{port}}/user/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"user",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get personal info",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiaWF0IjoxNTU2NjExNjQwLCJleHAiOjE1NTY2OTgwNDB9.y_evK0pMf6jMKx3rV5x7l5LNpvF_3maWsagnqiB5UR4ulwd6i7paI_CBOyffW7w88BZi8tZvbipCG5U5gPOkfQ"
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:{{port}}/user/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"user",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "load all user (403 for user)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiaWF0IjoxNTU2NjA5NzA4LCJleHAiOjE1NTY2OTYxMDh9.rwMpNscm45vbM51MP_qFePOvAsyzCGFIbggfy8V15CABgMrc-GnNV1FjD2btrtUvzrKXzxd6vam1LYcOZdnUdg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:{{port}}/user/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"user",
+								"all"
 							]
 						}
 					},
@@ -84,62 +183,23 @@
 							{
 								"key": "Authorization",
 								"type": "text",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU1NjU0NzU1NywiZXhwIjoxNTU2NjMzOTU3fQ.uHVcQxf76-ST9bf8CUoNYRMgdY80IU_icoFJOLpVA3Ub0HIud8DqAsBdp5ppM81F2gUckZrCYuCbYkxUc_RNyA"
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYW5hZ2VyIiwiaWF0IjoxNTU2NjExNTY5LCJleHAiOjE1NTY2OTc5Njl9.sSWqxntX9L6QdfSseiO0gYOWOUW5WIWLqobBGZ91cAtN4WXwFgkVRT1klZgKRwrhLpNWAV4_yOfkqmZ4ePRKkA"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\": \"user1\",\n\t\"email\": \"user1@test.com\",\n\t\"password\": \"user1\"\n}"
+							"raw": "{\n\t\"username\": \"user\",\n\t\"email\": \"user@test.com\",\n\t\"password\": \"user\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/user/create",
+							"raw": "http://localhost:{{port}}/user/create",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "{{port}}",
 							"path": [
 								"user",
 								"create"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get personal info",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"type": "text",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTU2NDY3NTQ5LCJleHAiOjE1NTY1NTM5NDl9.BYueTTwGgu_SKEMX_p1lBRY2Q-0Yz1ZOTlmYXMpKTn2VcD8yIPghSgw7pv2jCUXZgIbN3CKe-z1fjjI5sratqQ"
-							},
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "http://localhost:8080/user/me",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"user",
-								"me"
 							]
 						}
 					},
@@ -153,7 +213,7 @@
 							{
 								"key": "Authorization",
 								"type": "text",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTU2NDQ3NTM0LCJleHAiOjE1NTY1MzM5MzR9.CfBzJhPa7j4NqKk2Vu09pR1crgeRSnrzAd6el6yxG4yc30OLCWsKJYu1ksFuSz4gGl-mLLVjUxMVM3X52P00ww"
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiaWF0IjoxNTU2NjExNjQwLCJleHAiOjE1NTY2OTgwNDB9.y_evK0pMf6jMKx3rV5x7l5LNpvF_3maWsagnqiB5UR4ulwd6i7paI_CBOyffW7w88BZi8tZvbipCG5U5gPOkfQ"
 							},
 							{
 								"key": "Content-Type",
@@ -166,15 +226,46 @@
 							"raw": "{\n\t\"username\": \"user\",\n\t\"email\": \"user1@test.com\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/user/update",
+							"raw": "http://localhost:{{port}}/user/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "{{port}}",
 							"path": [
 								"user",
 								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiaWF0IjoxNTU2NjExNzczLCJleHAiOjE1NTY2OTgxNzN9.80s4zR24MDKrkLgrL-Czy-jDujN2W-Gz2xBo3iQ6dZwxk9FecBGCIPEhn8gtlBeWXaMAFu1FYA5YfTS0ygsAkQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:{{port}}/user/delete/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"user",
+								"delete",
+								"6"
 							]
 						}
 					},
@@ -202,15 +293,45 @@
 							"raw": "{\n\t\"username\": \"manager\",\n\t\"password\": \"manager\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/auth/login",
+							"raw": "http://localhost:{{port}}/auth/login",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "{{port}}",
 							"path": [
 								"auth",
 								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user by id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:{{port}}/user/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"user",
+								"2"
 							]
 						}
 					},
@@ -223,7 +344,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYW5hZ2VyIiwiaWF0IjoxNTU2NTQ4MzMxLCJleHAiOjE1NTY2MzQ3MzF9.XjKcZM3FW0_ME8-bsGi76NbytPE9du-MLIEu7wuRj9ykLJOUUy98_rOY-hXs40mHsfyr4qKXu-Bdv6oU9aLfrA",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYW5hZ2VyIiwiaWF0IjoxNTU2NjExNDA3LCJleHAiOjE1NTY2OTc4MDd9.tf1zEBI77E1PglCrf6qiZRW7JKvgEsVr34s4Hx3G3qPPmuYwkll2BQgHX4gGEqj8OhlzPFf1WImeGYuafgTWLQ",
 								"type": "text"
 							}
 						],
@@ -232,12 +353,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/user/all",
+							"raw": "http://localhost:{{port}}/user/all",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "{{port}}",
 							"path": [
 								"user",
 								"all"
@@ -259,7 +380,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU1NjU0NzU1NywiZXhwIjoxNTU2NjMzOTU3fQ.uHVcQxf76-ST9bf8CUoNYRMgdY80IU_icoFJOLpVA3Ub0HIud8DqAsBdp5ppM81F2gUckZrCYuCbYkxUc_RNyA",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU1NjYwOTUxNywiZXhwIjoxNTU2Njk1OTE3fQ.TgAH3W45ap6ms0wkAGCefgmsWOrX7PryBBrUFWF4BNmputJcShhtonC8j8x4rP1XGTV6qb3r7ppVBO0TyptObg",
 								"type": "text"
 							}
 						],
@@ -268,12 +389,12 @@
 							"raw": "{\n\t\"username\": \"manager\",\n\t\"email\": \"manager@test.com\",\n\t\"password\": \"manager\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/manager/create",
+							"raw": "http://localhost:{{port}}/manager/create",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "{{port}}",
 							"path": [
 								"manager",
 								"create"
@@ -289,7 +410,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYW5hZ2VyIiwiaWF0IjoxNTU2NTQ4MzMxLCJleHAiOjE1NTY2MzQ3MzF9.XjKcZM3FW0_ME8-bsGi76NbytPE9du-MLIEu7wuRj9ykLJOUUy98_rOY-hXs40mHsfyr4qKXu-Bdv6oU9aLfrA",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYW5hZ2VyIiwiaWF0IjoxNTU2NjExNDA3LCJleHAiOjE1NTY2OTc4MDd9.tf1zEBI77E1PglCrf6qiZRW7JKvgEsVr34s4Hx3G3qPPmuYwkll2BQgHX4gGEqj8OhlzPFf1WImeGYuafgTWLQ",
 								"type": "text"
 							},
 							{
@@ -301,15 +422,15 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"username\": \"manager\",\n\t\"email\": \"manager1@test.com\"\n}"
+							"raw": "{\n\t\"username\": \"manager1\",\n\t\"email\": \"manager11@test.com\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/user/update",
+							"raw": "http://localhost:{{port}}/user/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "{{port}}",
 							"path": [
 								"user",
 								"update"
@@ -325,7 +446,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYW5hZ2VyIiwiaWF0IjoxNTU2NTQ4MzMxLCJleHAiOjE1NTY2MzQ3MzF9.XjKcZM3FW0_ME8-bsGi76NbytPE9du-MLIEu7wuRj9ykLJOUUy98_rOY-hXs40mHsfyr4qKXu-Bdv6oU9aLfrA",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYW5hZ2VyIiwiaWF0IjoxNTU2NjExNDA3LCJleHAiOjE1NTY2OTc4MDd9.tf1zEBI77E1PglCrf6qiZRW7JKvgEsVr34s4Hx3G3qPPmuYwkll2BQgHX4gGEqj8OhlzPFf1WImeGYuafgTWLQ",
 								"type": "text"
 							}
 						],
@@ -334,16 +455,16 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/user/delete/6",
+							"raw": "http://localhost:{{port}}/user/delete/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "{{port}}",
 							"path": [
 								"user",
 								"delete",
-								"6"
+								"2"
 							]
 						}
 					},
@@ -371,15 +492,45 @@
 							"raw": "{\n\t\"username\": \"admin\",\n\t\"password\": \"admin\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/auth/login",
+							"raw": "http://localhost:{{port}}/auth/login",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "{{port}}",
 							"path": [
 								"auth",
 								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user by id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU1NjYwOTUxNywiZXhwIjoxNTU2Njk1OTE3fQ.TgAH3W45ap6ms0wkAGCefgmsWOrX7PryBBrUFWF4BNmputJcShhtonC8j8x4rP1XGTV6qb3r7ppVBO0TyptObg"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:{{port}}/user/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"user",
+								"1"
 							]
 						}
 					},
@@ -392,7 +543,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU1NjU0NzU1NywiZXhwIjoxNTU2NjMzOTU3fQ.uHVcQxf76-ST9bf8CUoNYRMgdY80IU_icoFJOLpVA3Ub0HIud8DqAsBdp5ppM81F2gUckZrCYuCbYkxUc_RNyA",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU1NjYwOTUxNywiZXhwIjoxNTU2Njk1OTE3fQ.TgAH3W45ap6ms0wkAGCefgmsWOrX7PryBBrUFWF4BNmputJcShhtonC8j8x4rP1XGTV6qb3r7ppVBO0TyptObg",
 								"type": "text"
 							}
 						],
@@ -401,12 +552,12 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/user/all",
+							"raw": "http://localhost:{{port}}/user/all",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "{{port}}",
 							"path": [
 								"user",
 								"all"
@@ -428,7 +579,7 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU1NjU0NzU1NywiZXhwIjoxNTU2NjMzOTU3fQ.uHVcQxf76-ST9bf8CUoNYRMgdY80IU_icoFJOLpVA3Ub0HIud8DqAsBdp5ppM81F2gUckZrCYuCbYkxUc_RNyA",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU1NjYwOTUxNywiZXhwIjoxNTU2Njk1OTE3fQ.TgAH3W45ap6ms0wkAGCefgmsWOrX7PryBBrUFWF4BNmputJcShhtonC8j8x4rP1XGTV6qb3r7ppVBO0TyptObg",
 								"type": "text"
 							}
 						],
@@ -437,12 +588,12 @@
 							"raw": "{\n\t\"username\": \"admin2\",\n\t\"email\": \"admin2@test.com\",\n\t\"password\": \"admin2\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/admin/create",
+							"raw": "http://localhost:{{port}}/admin/create",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "{{port}}",
 							"path": [
 								"admin",
 								"create"
@@ -458,7 +609,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU1NjU0NzU1NywiZXhwIjoxNTU2NjMzOTU3fQ.uHVcQxf76-ST9bf8CUoNYRMgdY80IU_icoFJOLpVA3Ub0HIud8DqAsBdp5ppM81F2gUckZrCYuCbYkxUc_RNyA",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU1NjYwOTUxNywiZXhwIjoxNTU2Njk1OTE3fQ.TgAH3W45ap6ms0wkAGCefgmsWOrX7PryBBrUFWF4BNmputJcShhtonC8j8x4rP1XGTV6qb3r7ppVBO0TyptObg",
 								"type": "text"
 							},
 							{
@@ -473,12 +624,12 @@
 							"raw": "{\n\t\"username\": \"admin2\",\n\t\"email\": \"admin22@test.com\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/user/update",
+							"raw": "http://localhost:{{port}}/user/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "{{port}}",
 							"path": [
 								"user",
 								"update"
@@ -494,7 +645,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTU1NjYwOTUxNywiZXhwIjoxNTU2Njk1OTE3fQ.TgAH3W45ap6ms0wkAGCefgmsWOrX7PryBBrUFWF4BNmputJcShhtonC8j8x4rP1XGTV6qb3r7ppVBO0TyptObg",
 								"type": "text"
 							}
 						],
@@ -503,16 +654,16 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:8080/user/delete/3",
+							"raw": "http://localhost:{{port}}/user/delete/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "{{port}}",
 							"path": [
 								"user",
 								"delete",
-								"3"
+								"4"
 							]
 						}
 					},

@@ -1,4 +1,5 @@
 server.port: 8080
 app:
   jwtSecret: secret
+  #jwt will be expired in 24 hours
   jwtExpiration: 86400000
