@@ -5,8 +5,6 @@ import com.cosson.usermanagement.dto.JwtAuthenticationResponse;
 import com.cosson.usermanagement.dto.LoginRequest;
 import com.cosson.usermanagement.dto.RegistrationRequest;
 import com.cosson.usermanagement.entity.RoleName;
-import com.cosson.usermanagement.entity.User;
-import com.cosson.usermanagement.repo.RoleRepository;
 import com.cosson.usermanagement.repo.UserRepository;
 import com.cosson.usermanagement.security.JwtTokenProvider;
 import com.cosson.usermanagement.service.UserAdminService;
@@ -17,7 +15,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,19 +32,13 @@ public class AuthenticationController {
     private UserRepository userRepository;
 
     @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
     private JwtTokenProvider tokenProvider;
 
     @Autowired
     private UserAdminService service;
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<JwtAuthenticationResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -63,14 +54,13 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody RegistrationRequest registrationRequest) {
-        if(userRepository.existsByUsername(registrationRequest.getUsername())) {
-            return new ResponseEntity(new ApiResponse(false, "Username is already taken!"),
+    public ResponseEntity<ApiResponse> registerUser(@Valid @RequestBody RegistrationRequest registrationRequest) {
+        if (userRepository.existsByUsername(registrationRequest.getUsername())) {
+            return new ResponseEntity<>(new ApiResponse(false, "Username is already taken!"),
                     HttpStatus.BAD_REQUEST);
         }
 
         service.createUser(registrationRequest, RoleName.ROLE_USER);
-
 
         return ResponseEntity.ok(new ApiResponse(true, "User registered successfully"));
     }

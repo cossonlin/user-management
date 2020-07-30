@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 @Service
 public class UserAdminService {
 
+    public static final String NOT_AUTHORIZED = "Don't have permission to do this";
     @Autowired
     private UserRepository userRepository;
 
@@ -41,7 +42,7 @@ public class UserAdminService {
         if (hasPermission(user.getRoles(), roleName)) {
             return new UserInfoResponse(user.getId(), user.getUsername(), user.getEmail(), user.getRoles());
         } else {
-            throw new BadRequestException("Don't have permission to do this");
+            throw new BadRequestException(NOT_AUTHORIZED);
         }
     }
 
@@ -76,7 +77,7 @@ public class UserAdminService {
             User updatedUser = userRepository.save(currentUser);
             return convertUserToUserInfo(updatedUser);
         } else {
-            throw new BadRequestException("Don't have permission to do this");
+            throw new BadRequestException(NOT_AUTHORIZED);
         }
     }
 
@@ -87,7 +88,7 @@ public class UserAdminService {
         if (hasPermission(currentUser.getRoles(), operatorRole)) {
             userRepository.deleteById(id);
         } else {
-            throw new BadRequestException("Don't have permission to do this");
+            throw new BadRequestException(NOT_AUTHORIZED);
         }
     }
 
